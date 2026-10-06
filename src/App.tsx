@@ -5,8 +5,8 @@ import { TaskList } from "./components/TaskList"
 import { TaskFilters } from "./components/TaskFilters"
 import { TaskSummary } from "./components/TaskSummary"
 
-export function App() {
-  const { studyPlans, handleStatusTodo, handleDeleteTodo } = useStudyPlan()
+export default function App() {
+  const { studyPlans, handleStatusTodo, handleDeleteTodo,handleAddStudyPlan } = useStudyPlan()
   const [filter, setFilter] = useState<"all" | "pending" | "done">("all")
 
   // Filtrado dinámico según el estado
@@ -26,7 +26,7 @@ export function App() {
       <h1>PRÁCTICA · REACT - Plan de estudio</h1>
       <section className="layout">
         
-        <TaskForm />
+        <TaskForm onAdd={handleAddStudyPlan} />
 
         <section className="board">
           

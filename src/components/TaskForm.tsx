@@ -1,21 +1,19 @@
 import { useReducer, useState } from "react"
 import type { StudyPlanState } from "../types/StudyPlanState"
-import { useStudyPlan } from "../hooks/useStudyPlan"
 import type { SubjectId } from "./TaskItem"
 
 function eventInputReducer(prev: StudyPlanState, next: object) {
   return { ...prev, ...next }
 }
 
-export function TaskForm() {
-  const { handleAddStudyPlan } = useStudyPlan()
+export function TaskForm({ onAdd }: { onAdd: (title: string, subject: SubjectId) => void }  ) {
 
   const [formValues] = useState({ title: "", subject: "programacion" as SubjectId })
   const [inputValue, dispatchInputValue] = useReducer(eventInputReducer, formValues)
 
   const handleAddStudy = () => {
     if (inputValue.title.trim().length >= 3 && inputValue.subject) {
-      handleAddStudyPlan(inputValue.title, inputValue.subject as SubjectId)
+      onAdd(inputValue.title, inputValue.subject as SubjectId)
       dispatchInputValue({ title: "", subject: "programacion" as SubjectId })
     }
   }
